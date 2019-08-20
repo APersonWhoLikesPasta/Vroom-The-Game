@@ -12,14 +12,20 @@
 import pygame  # Imports the Pygame module
 
 # Colors
-black = (0, 0, 0,)
-white = (255, 255, 255)
+black = (0, 0, 0,)  # Defines black
+white = (255, 255, 255)  # Defines white
+red = (255, 0, 0,)  # Defines red
+green = (0, 255, 0)  # Defines green
+blue = (0, 0, 255)  # Defines blue
+
 pygame.init()  # Pygame is an instance and you have to initialize it
+
 displayWidth = 800  # Sets displayWidth in pixels
 displayHeight = 600  # Sets displayHeight in pixels
-gameDisplay = pygame.display.set_mode((displayWidth, displayHeight))  # A Tuple with display and height
 
+gameDisplay = pygame.display.set_mode((displayWidth, displayHeight))  # A Tuple with display and height
 # Variable  |Calls Pygame|Calls display|Use pygame.display command
+
 pygame.display.set_caption('Vroom Vroom')  # Sets title bar text
 
 # A clock is necessary to time in game actions
