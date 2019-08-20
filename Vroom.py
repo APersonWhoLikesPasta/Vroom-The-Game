@@ -26,7 +26,7 @@ displayHeight = 600  # Sets displayHeight in pixels
 gameDisplay = pygame.display.set_mode((displayWidth, displayHeight))  # A Tuple with display and height
 # Variable  |Calls Pygame|Calls display|Use pygame.display command
 
-pygame.display.set_caption('Vroom Vroom')  # Sets title bar text
+pygame.display.set_caption('Vroom')  # Sets title bar text
 
 # A clock is necessary to time in game actions
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
