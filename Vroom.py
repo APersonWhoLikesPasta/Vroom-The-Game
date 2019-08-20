@@ -17,7 +17,9 @@ white = (255, 255, 255)  # Defines white
 red = (255, 0, 0,)  # Defines red
 green = (0, 255, 0)  # Defines green
 blue = (0, 0, 255)  # Defines blue
-
+gray = (105, 105, 105)  # Defines gray
+dimGray = (119, 136, 153)  # Defines dim gray
+darkGray = (169, 169, 169)  # Define dark gray
 pygame.init()  # Pygame is an instance and you have to initialize it
 
 displayWidth = 800  # Sets displayWidth in pixels
