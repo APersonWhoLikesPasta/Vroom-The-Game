@@ -1,10 +1,13 @@
-# Test
-#### This is a testing repository to test Github and make a simple Python application.
+# Silly-Python-Games
+#### A collection of games written in Python.
 
-### Installtion
+## Vroom
+Vroom is a game where you drive a car around obstacles.
 
-1.) Install Python 3.6 < (Older versions of Python may work but are not supported)
+#### Instaltion
 
-2.) Install Pygame
+1.) Download Python 3.6 or greater 64-bit.
 
-3.) Download 'Main.py' and run it
+2.) Download Pygame via Pip3.
+
+3.) Download 'Vroom.py' and have fun.
