@@ -53,4 +53,3 @@ while not crashed:  # When your not crashed
 ###############
 pygame.quit()
 quit()
-#yeet
