@@ -8,6 +8,6 @@
 
 ## Reporting a Vulnerability
 
-If you discover a vulrablity email me at fbrittingham04@gmail.com.
+If you discover a vulnerability email me at fbrittingham04@gmail.com.
 
-Do not inform others of the vunlerablity untile it has been patched.
+Do not inform others of the vulnerability until it has been patched.

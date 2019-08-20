@@ -4,7 +4,7 @@
 ## Vroom
 Vroom is a game where you drive a car around obstacles.
 
-#### Instaltion
+#### Installation
 
 1.) Download Python 3.6 or greater 64-bit.
 
