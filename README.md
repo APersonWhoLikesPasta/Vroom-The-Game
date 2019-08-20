@@ -11,3 +11,10 @@ Vroom is a game where you drive a car around obstacles.
 2.) Download Pygame via Pip3.
 
 3.) Download 'Vroom.py' and have fun.
+
+## Text Based Faliure
+An adventure game with text.
+
+#### Installtion
+
+1.) Download TextBasedFaliure.py
