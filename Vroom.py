@@ -8,11 +8,12 @@
 # the road.                #
 #############################
 
-import time  # Imports time
-
+import random
 ##########
 # Set Up #
 ##########
+import time
+
 import pygame  # Imports the Pygame module
 
 # Colors
@@ -46,6 +47,10 @@ car_image = pygame.image.load('Car.png')  # Load Car.png
 # Functions #
 #############
 
+def thing(thingx, thingy, thingw, thingh, color):  # Defines blocks
+    pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
+
+
 def car(x, y):  # Defines car
     gameDisplay.blit(car_image, (x, y))  # Blit Car.png on the display
     # 0,0 for computers is upper left. x = right y = down
@@ -77,6 +82,13 @@ def game_loop():  # Define game_loop
     y = (displayHeight * 0.8)  # Set y position
 
     x_change = 0  # Sets default change value
+    ##############
+    thing_startx = random.randrange(0, displayWidth)
+    thing_starty = -600
+    thing_speed = 7
+    thing_width = 100
+    thing_height = 100
+    ##############
 
     #############
     # Game Loop #
@@ -89,8 +101,8 @@ def game_loop():  # Define game_loop
         for event in pygame.event.get():  # Retrieves any event and applies it like *
             if event.type == pygame.QUIT:  # If the 'QUIT' event occurs the game ends
                 game_exit = True  # Loop ceases to occur
-                pygame.quit()
-                quit()
+                pygame.quit()  # Quits Pygame
+                quit()  # Quits Python
                 print(event)  # Print the event to console
             if event.type == pygame.KEYDOWN:  # Check to see if some pressed a key
                 if event.key == pygame.K_LEFT:  # If the keypress if left arrow key
@@ -104,10 +116,22 @@ def game_loop():  # Define game_loop
         x += x_change  # x = x + xChange // If xChange is -5 than x will move over minus five
 
         gameDisplay.fill(white)  # Creates white background (put in right order or else get overwritten)
+
+        thing(thing_startx, thing_starty, thing_width, thing_height, black)
+        thing_starty += thing_speed
         car(x, y)  # Runs car
 
         if x > displayWidth - car_width or x < 0:
             crash()
+        if thing_starty > displayHeight:
+            thing_starty = 0 - thing_height
+            thing_startx = random.randrange(0, displayWidth)
+
+        if y < thing_starty + thing_height:
+            print('y crossover')
+            if thing_startx < x < thing_startx + thing_width or thing_startx < x + car_width < thing_startx + thing_width:
+                print('x crossover')
+                crash()
 
         pygame.display.update()  # Updates what the player sees
         # pygame.display.update() = change just one thing in the parameter. If none specified than all updated
