@@ -33,11 +33,25 @@ pygame.display.set_caption('Vroom')  # Sets title bar text
 # A clock is necessary to time in game actions
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
 
+carImg = pygame.image.load('Car.png')  # Load Car.png
+
+#############
+# Functions #
+#############
+x = (displayWidth * 0.45)  # Set x position
+y = (displayHeight * 0.8)  # Set y position
+
+
+def car(x, y):  # Defines car
+    gameDisplay.blit(carImg, (x, y))  # Blit Car.png on the display
+    # 0,0 for computers is upper left. x = right y = down
+
 #############
 # Game Loop #
 #           #############################################
 # A 'Game Loop' is where all the game logic is located. #
 #########################################################
+
 
 crashed = False  # Default value crash is false (you have not crashed)
 while not crashed:  # When your not crashed
@@ -45,6 +59,8 @@ while not crashed:  # When your not crashed
         if event.type == pygame.QUIT:  # If the 'QUIT' event occurs the game ends
             crashed = True  # Loop cease occurring
             print(event)  # Print the event to console
+    gameDisplay.fill(white)  # Creates white background (put in right order or else get overwritten)
+    car(x, y)  # Runs car
     pygame.display.update()  # Updates what the player sees
     # pygame.display.update() = change just one thing in the parameter. If none specified than all updated
     # pygame.display.flip() will always update all the surface
