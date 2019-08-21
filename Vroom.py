@@ -46,6 +46,9 @@ def car(x, y):  # Defines car
     gameDisplay.blit(carImg, (x, y))  # Blit Car.png on the display
     # 0,0 for computers is upper left. x = right y = down
 
+
+xChange = 0  # Sets default change value
+
 #############
 # Game Loop #
 #           #############################################
@@ -59,6 +62,17 @@ while not crashed:  # When your not crashed
         if event.type == pygame.QUIT:  # If the 'QUIT' event occurs the game ends
             crashed = True  # Loop cease occurring
             print(event)  # Print the event to console
+        if event.type == pygame.KEYDOWN:  # Check to see if some pressed a key
+            if event.key == pygame.K_LEFT:  # If the keypress if left arrow key
+                xChange = -5  # Moves car 5 pixels to the left
+            elif event.key == pygame.K_RIGHT:  # Check to see if keypress is right arrow key
+                xChange = +5  # Moves car five pixels to the right
+        if event.type == pygame.KEYUP:  # Check to see if key release
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:  # If the right / left arrows keys release
+                xChange = 0  # Resets x so it is relative
+
+    x += xChange  # x = x + xChange // If xChange is -5 than x will move over minus five
+
     gameDisplay.fill(white)  # Creates white background (put in right order or else get overwritten)
     car(x, y)  # Runs car
     pygame.display.update()  # Updates what the player sees
