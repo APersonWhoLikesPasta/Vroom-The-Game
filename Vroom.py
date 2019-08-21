@@ -1,9 +1,14 @@
 #####################
-# Pygame Experiment #
+#    Vroom.py       #
 #                   ########
 # A Game where you         #
-# pilot a boat around rocks#
-############################
+# pilot a car around rocks #
+# that 'just happen' to    #
+# appear in the middle of  #
+# the road.                #
+#############################
+
+import time  # Imports time
 
 ##########
 # Set Up #
@@ -22,6 +27,7 @@ darkGray = (169, 169, 169)  # Define dark gray
 
 pygame.init()  # Pygame is an instance and you have to initialize it
 
+car_width = 73  # Sets car width
 displayWidth = 800  # Sets displayWidth in pixels
 displayHeight = 600  # Sets displayHeight in pixels
 
@@ -33,7 +39,7 @@ pygame.display.set_caption('Vroom')  # Sets title bar text
 # A clock is necessary to time in game actions
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
 
-carImg = pygame.image.load('Car.png')  # Load Car.png
+car_image = pygame.image.load('Car.png')  # Load Car.png
 
 
 #############
@@ -41,11 +47,32 @@ carImg = pygame.image.load('Car.png')  # Load Car.png
 #############
 
 def car(x, y):  # Defines car
-    gameDisplay.blit(carImg, (x, y))  # Blit Car.png on the display
+    gameDisplay.blit(car_image, (x, y))  # Blit Car.png on the display
     # 0,0 for computers is upper left. x = right y = down
 
 
-def game_loop():
+def text_objects(message, font):  # Defines text_objects
+    text_surface = font.render(message, True, black)  # Renders the font
+    # Define text_surface|Font in Pygame|Put message|Aliasing toggle|Font color
+    return text_surface, text_surface.get_rect()  # Returns the value og text_surface and text_surface.get_rect()
+
+
+def message_display(message):  # Create function for message appearance
+    largeText = pygame.font.Font('freesansbold.ttf', 115)  # Defines font
+    TextSurf, TextRect = text_objects(message, largeText)  # Define TextSurf and TextRect
+    TextRect.center = ((displayWidth / 2), (displayHeight / 2))  # Centers the text
+    gameDisplay.blit(TextSurf, TextRect)  # Make text appear
+
+    pygame.display.update()  # Update display
+    time.sleep(2)  # Display text for 2 seconds
+    game_loop()  # Restarts game_loop
+
+
+def crash():  # Define crash
+    message_display('You Crashed')  # Display message
+
+
+def game_loop():  # Define game_loop
     x = (displayWidth * 0.45)  # Set x position
     y = (displayHeight * 0.8)  # Set y position
 
@@ -57,11 +84,13 @@ def game_loop():
     # A 'Game Loop' is where all the game logic is located. #
     #########################################################
 
-    crashed = False  # Default value crash is false (you have not crashed)
-    while not crashed:  # When your not crashed
+    game_exit = False  # Default value crash is false (you have not crashed)
+    while not game_exit:  # When your not leaving
         for event in pygame.event.get():  # Retrieves any event and applies it like *
             if event.type == pygame.QUIT:  # If the 'QUIT' event occurs the game ends
-                crashed = True  # Loop cease occurring
+                game_exit = True  # Loop ceases to occur
+                pygame.quit()
+                quit()
                 print(event)  # Print the event to console
             if event.type == pygame.KEYDOWN:  # Check to see if some pressed a key
                 if event.key == pygame.K_LEFT:  # If the keypress if left arrow key
@@ -76,11 +105,19 @@ def game_loop():
 
         gameDisplay.fill(white)  # Creates white background (put in right order or else get overwritten)
         car(x, y)  # Runs car
+
+        if x > displayWidth - car_width or x < 0:
+            crash()
+
         pygame.display.update()  # Updates what the player sees
         # pygame.display.update() = change just one thing in the parameter. If none specified than all updated
         # pygame.display.flip() will always update all the surface
         clock.tick(60)  # FPS is tied to clock so 60 tick = 60 FPS
 
+
+############
+# Game Run #
+############
 
 game_loop()  # Run game loop
 
