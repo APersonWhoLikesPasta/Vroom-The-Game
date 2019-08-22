@@ -13,7 +13,6 @@
 ##########
 import random
 import time
-
 import pygame  # Imports the Pygame module
 
 # Colors
@@ -25,6 +24,8 @@ blue = (0, 0, 255)  # Defines blue
 gray = (105, 105, 105)  # Defines gray
 dimGray = (119, 136, 153)  # Defines dim gray
 darkGray = (169, 169, 169)  # Define dark gray
+darkRed = (150, 0, 0)
+darkGreen = (0, 150, 0)
 
 pygame.init()  # Pygame is an instance and you have to initialize it
 
@@ -49,14 +50,14 @@ car_image = pygame.image.load('Car.png')  # Load Car.png
 
 def odometer(count):
     font = pygame.font.SysFont(None, 25)
-    text = font.render("thing_speed: " + str(count), True, black)
-    gameDisplay.blit(text, (0, 15))
+    text = font.render("thing_speed: " + str(count), True, white)
+    gameDisplay.blit(text, (5, 15))
 
 
 def things_dodged(count):
     font = pygame.font.SysFont(None, 25)
-    text = font.render("Dodged: " + str(count), True, black)
-    gameDisplay.blit(text, (0, 0))
+    text = font.render("Dodged: " + str(count), True, white)
+    gameDisplay.blit(text, (5, 0))
 
 
 def thing(thingx, thingy, thingw, thingh):  # Defines blocks
@@ -69,7 +70,7 @@ def car(x, y):  # Defines car
 
 
 def text_objects(message, font):  # Defines text_objects
-    text_surface = font.render(message, True, black)  # Renders the font
+    text_surface = font.render(message, True, white)  # Renders the font
     # Define text_surface|Font in Pygame|Put message|Aliasing toggle|Font color
     return text_surface, text_surface.get_rect()  # Returns the value og text_surface and text_surface.get_rect()
 
@@ -89,6 +90,15 @@ def crash():  # Define crash
     message_display('You Crashed')  # Display message
 
 
+def game_background():
+    gameDisplay.fill(black)
+
+    pygame.draw.line(gameDisplay, green, (1, 1), (1, 600), 5)
+    pygame.draw.line(gameDisplay, green, (800, 1), (800, 600), 9)
+    pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
+    pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 450, 20, 100))
+
+
 def game_intro():
     intro = True
 
@@ -98,12 +108,24 @@ def game_intro():
                 pygame.quit()
                 quit()
 
-        gameDisplay.fill(white)
-        largeText = pygame.font.Font('freesansbold.ttf', 115)
-        smallText = pygame.font.Font('freesansbold.ttf', 75)
-        TextSurf, TextRect = text_objects("Vroom", largeText)
-        TextRect.center = ((displayWidth / 2), (displayHeight / 2))
+        game_background()
+        largeText = pygame.font.Font('freesansbold.ttf', 75)
+        TextSurf, TextRect = text_objects("Vroom: The Game", largeText)
+        TextRect.center = (400, 100)
         gameDisplay.blit(TextSurf, TextRect)
+
+        mouse = pygame.mouse.get_pos()
+
+        if 150 + 150 > mouse[0] > 150 and 250 + 100 > mouse[1] > 250:
+            print("button_one: Hover True")
+            pygame.draw.rect(gameDisplay, darkRed, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
+        elif 500 + 150 > mouse[0] > 150 and 250 + 100 > mouse[1] > 250:
+            print("button_two: Hove True")
+            pygame.draw.rect(gameDisplay, darkGreen, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
+
+        pygame.draw.rect(gameDisplay, red, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
+        pygame.draw.rect(gameDisplay, green, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
+
         pygame.display.update()
         clock.tick(60)
 
@@ -148,7 +170,11 @@ def game_loop():  # Define game_loop
 
         x += x_change  # x = x + xChange // If xChange is -5 than x will move over minus five
 
-        gameDisplay.fill(white)  # Creates white background (put in right order or else get overwritten)
+        ##############
+        # Background #
+        ##############
+        game_background()
+        pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 50, 20, 100))
 
         thing(thing_startx, thing_starty, thing_width, thing_height)
         thing_starty += thing_speed
