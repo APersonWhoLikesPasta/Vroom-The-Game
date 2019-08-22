@@ -24,8 +24,8 @@ blue = (0, 0, 255)  # Defines blue
 gray = (105, 105, 105)  # Defines gray
 dimGray = (119, 136, 153)  # Defines dim gray
 darkGray = (169, 169, 169)  # Define dark gray
-darkRed = (150, 0, 0)
-darkGreen = (0, 150, 0)
+darkRed = (125, 0, 0)
+darkGreen = (0, 125, 0)
 
 pygame.init()  # Pygame is an instance and you have to initialize it
 
@@ -48,6 +48,27 @@ car_image = pygame.image.load('Car.png')  # Load Car.png
 # Functions #
 #############
 
+def exit_game():
+    print("Quit from Menu")
+    pygame.quit()
+    quit()
+
+
+def button(msg, x, y, w, h, ic, ac):
+    # button(MSG!, 155, 155, 100, 50, red, darkRed)
+    mouse = pygame.mouse.get_pos()
+
+    if x + w > mouse[0] > x and y + h > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
+    else:
+        pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
+
+    smallText = pygame.font.Font("freesansbold.ttf", 30)
+    textSurf, textRect = text_objects(msg, smallText, ic)
+    textRect.center = ((x + (w / 2)), (y + (h / 2)))
+    gameDisplay.blit(textSurf, textRect)
+
+
 def odometer(count):
     font = pygame.font.SysFont(None, 25)
     text = font.render("thing_speed: " + str(count), True, white)
@@ -69,15 +90,15 @@ def car(x, y):  # Defines car
     # 0,0 for computers is upper left. x = right y = down
 
 
-def text_objects(message, font):  # Defines text_objects
-    text_surface = font.render(message, True, white)  # Renders the font
+def text_objects(message, font, color):  # Defines text_objects
+    text_surface = font.render(message, True, color)  # Renders the font
     # Define text_surface|Font in Pygame|Put message|Aliasing toggle|Font color
     return text_surface, text_surface.get_rect()  # Returns the value og text_surface and text_surface.get_rect()
 
 
 def message_display(message):  # Create function for message appearance
     largeText = pygame.font.Font('freesansbold.ttf', 115)  # Defines font
-    TextSurf, TextRect = text_objects(message, largeText)  # Define TextSurf and TextRect
+    TextSurf, TextRect = text_objects(message, largeText, white)  # Define TextSurf and TextRect
     TextRect.center = ((displayWidth / 2), (displayHeight / 2))  # Centers the text
     gameDisplay.blit(TextSurf, TextRect)  # Make text appear
 
@@ -110,22 +131,45 @@ def game_intro():
 
         game_background()
         largeText = pygame.font.Font('freesansbold.ttf', 75)
-        TextSurf, TextRect = text_objects("Vroom: The Game", largeText)
+        TextSurf, TextRect = text_objects("Vroom: The Game", largeText, white)
         TextRect.center = (400, 100)
         gameDisplay.blit(TextSurf, TextRect)
 
+        ##########
+        # Button #
+        ##########
         mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
 
         if 150 + 150 > mouse[0] > 150 and 250 + 100 > mouse[1] > 250:
             print("button_one: Hover True")
             pygame.draw.rect(gameDisplay, darkRed, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
+            if click[0] == 1:
+                print("button_one: Click True")
+                exit_game()
         elif 500 + 150 > mouse[0] > 150 and 250 + 100 > mouse[1] > 250:
             print("button_two: Hove True")
             pygame.draw.rect(gameDisplay, darkGreen, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
+            if click[0] == 1:
+                print("button_two: Click True")
+                game_loop()
 
         pygame.draw.rect(gameDisplay, red, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
         pygame.draw.rect(gameDisplay, green, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
 
+        smallText = pygame.font.Font("freesansbold.ttf", 30)
+        TextSurf, TextRect = text_objects("Play!", smallText, black)
+        TextRect.center = ((displayWidth / 2 + (350 / 2)), (displayHeight / 2))
+        gameDisplay.blit(TextSurf, TextRect)
+
+        smallText = pygame.font.Font("freesansbold.ttf", 30)
+        TextSurf, TextRect = text_objects("Quit!", smallText, black)
+        TextRect.center = ((displayWidth / 2 - (350 / 2)), (displayHeight / 2))
+        gameDisplay.blit(TextSurf, TextRect)
+
+        ##############
+        # Not Button #
+        ##############
         pygame.display.update()
         clock.tick(60)
 
