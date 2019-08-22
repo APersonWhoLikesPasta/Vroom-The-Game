@@ -8,10 +8,10 @@
 # the road.                #
 #############################
 
-import random
 ##########
 # Set Up #
 ##########
+import random
 import time
 
 import pygame  # Imports the Pygame module
@@ -28,7 +28,7 @@ darkGray = (169, 169, 169)  # Define dark gray
 
 pygame.init()  # Pygame is an instance and you have to initialize it
 
-car_width = 73  # Sets car width
+car_width = 70  # Sets car width
 displayWidth = 800  # Sets displayWidth in pixels
 displayHeight = 600  # Sets displayHeight in pixels
 
@@ -47,8 +47,20 @@ car_image = pygame.image.load('Car.png')  # Load Car.png
 # Functions #
 #############
 
+def odometer(count):
+    font = pygame.font.SysFont(None, 25)
+    text = font.render("thing_speed: " + str(count), True, black)
+    gameDisplay.blit(text, (0, 15))
+
+
+def things_dodged(count):
+    font = pygame.font.SysFont(None, 25)
+    text = font.render("Dodged: " + str(count), True, black)
+    gameDisplay.blit(text, (0, 0))
+
+
 def thing(thingx, thingy, thingw, thingh, color):  # Defines blocks
-    pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
+    pygame.draw.rect(gameDisplay, red, [thingx, thingy, thingw, thingh])
 
 
 def car(x, y):  # Defines car
@@ -82,10 +94,12 @@ def game_loop():  # Define game_loop
     y = (displayHeight * 0.8)  # Set y position
 
     x_change = 0  # Sets default change value
+
+    dodged = 0
     ##############
     thing_startx = random.randrange(0, displayWidth)
     thing_starty = -600
-    thing_speed = 7
+    thing_speed = 5
     thing_width = 100
     thing_height = 100
     ##############
@@ -120,12 +134,19 @@ def game_loop():  # Define game_loop
         thing(thing_startx, thing_starty, thing_width, thing_height, black)
         thing_starty += thing_speed
         car(x, y)  # Runs car
+        ############
+        # Odometer ##############
+        odometer(thing_speed)  #
+        #########################
+        things_dodged(dodged)
 
         if x > displayWidth - car_width or x < 0:
             crash()
         if thing_starty > displayHeight:
             thing_starty = 0 - thing_height
             thing_startx = random.randrange(0, displayWidth)
+            dodged += 1
+            thing_speed += 0.5
 
         if y < thing_starty + thing_height:
             print('y crossover')
