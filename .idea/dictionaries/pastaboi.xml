@@ -2,7 +2,13 @@
   <dictionary name="pastaboi">
     <words>
       <w>blit</w>
+      <w>freesansbold</w>
       <w>pygame</w>
+      <w>startx</w>
+      <w>starty</w>
+      <w>thingh</w>
+      <w>thingw</w>
+      <w>thingx</w>
       <w>vroom</w>
     </words>
   </dictionary>
