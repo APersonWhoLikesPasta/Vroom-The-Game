@@ -59,7 +59,7 @@ def things_dodged(count):
     gameDisplay.blit(text, (0, 0))
 
 
-def thing(thingx, thingy, thingw, thingh, color):  # Defines blocks
+def thing(thingx, thingy, thingw, thingh):  # Defines blocks
     pygame.draw.rect(gameDisplay, red, [thingx, thingy, thingw, thingh])
 
 
@@ -87,6 +87,25 @@ def message_display(message):  # Create function for message appearance
 
 def crash():  # Define crash
     message_display('You Crashed')  # Display message
+
+
+def game_intro():
+    intro = True
+
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        gameDisplay.fill(white)
+        largeText = pygame.font.Font('freesansbold.ttf', 115)
+        smallText = pygame.font.Font('freesansbold.ttf', 75)
+        TextSurf, TextRect = text_objects("Vroom", largeText)
+        TextRect.center = ((displayWidth / 2), (displayHeight / 2))
+        gameDisplay.blit(TextSurf, TextRect)
+        pygame.display.update()
+        clock.tick(60)
 
 
 def game_loop():  # Define game_loop
@@ -131,7 +150,7 @@ def game_loop():  # Define game_loop
 
         gameDisplay.fill(white)  # Creates white background (put in right order or else get overwritten)
 
-        thing(thing_startx, thing_starty, thing_width, thing_height, black)
+        thing(thing_startx, thing_starty, thing_width, thing_height)
         thing_starty += thing_speed
         car(x, y)  # Runs car
         ############
@@ -163,6 +182,8 @@ def game_loop():  # Define game_loop
 ############
 # Game Run #
 ############
+
+game_intro()  # Run intro
 
 game_loop()  # Run game loop
 
