@@ -187,8 +187,8 @@ def game_loop():  # Define game_loop
     thing_startx = random.randrange(0, displayWidth)
     thing_starty = -600
     thing_speed = 5
-    thing_width = 28
-    thing_height = 58
+    thing_width = 55
+    thing_height = 124
     ##############
 
     #############
@@ -226,9 +226,9 @@ def game_loop():  # Define game_loop
         thing_starty += thing_speed
         car(x, y)  # Runs car
         ############
-        # Odometer ##############
-        odometer(thing_speed)  #
-        #########################
+        # Odometer ###############
+        # odometer(thing_speed)  #
+        ##########################
         things_dodged(dodged)
 
         if x > displayWidth - car_width or x < 0:
