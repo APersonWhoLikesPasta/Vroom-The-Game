@@ -83,6 +83,9 @@ def things_dodged(count):
 
 
 def thing(thingx, thingy, thingw, thingh):  # Defines blocks
+    s = pygame.Surface((55, 124), pygame.SRCALPHA)
+    s.fill((255, 255, 255))
+    gameDisplay.blit(s, (thingx, thingy))
     pygame.draw.rect(gameDisplay, black, [thingx, thingy, thingw, thingh])
     gameDisplay.blit(truck_image, (thingx, thingy))
 
