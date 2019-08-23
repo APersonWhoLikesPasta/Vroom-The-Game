@@ -42,6 +42,7 @@ pygame.display.set_caption('Vroom')  # Sets title bar text
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
 
 car_image = pygame.image.load('Car.png')  # Load Car.png
+truck_image = pygame.image.load('car-truck3.png')
 
 
 #############
@@ -82,7 +83,8 @@ def things_dodged(count):
 
 
 def thing(thingx, thingy, thingw, thingh):  # Defines blocks
-    pygame.draw.rect(gameDisplay, red, [thingx, thingy, thingw, thingh])
+    pygame.draw.rect(gameDisplay, black, [thingx, thingy, thingw, thingh])
+    gameDisplay.blit(truck_image, (thingx, thingy))
 
 
 def car(x, y):  # Defines car
@@ -185,8 +187,8 @@ def game_loop():  # Define game_loop
     thing_startx = random.randrange(0, displayWidth)
     thing_starty = -600
     thing_speed = 5
-    thing_width = 100
-    thing_height = 100
+    thing_width = 28
+    thing_height = 58
     ##############
 
     #############
