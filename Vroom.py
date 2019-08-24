@@ -13,7 +13,6 @@
 ##########
 import random
 import time
-
 import pygame  # Imports the Pygame module
 
 # Colors
@@ -25,6 +24,8 @@ blue = (0, 0, 255)  # Defines blue
 gray = (105, 105, 105)  # Defines gray
 dimGray = (119, 136, 153)  # Defines dim gray
 darkGray = (169, 169, 169)  # Define dark gray
+darkRed = (125, 0, 0)
+darkGreen = (0, 125, 0)
 
 pygame.init()  # Pygame is an instance and you have to initialize it
 
@@ -41,26 +42,52 @@ pygame.display.set_caption('Vroom')  # Sets title bar text
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
 
 car_image = pygame.image.load('Car.png')  # Load Car.png
+truck_image = pygame.image.load('car-truck3.png')
 
 
 #############
 # Functions #
 #############
 
+def exit_game():
+    print("Quit from Menu")
+    pygame.quit()
+    quit()
+
+
+def button(msg, x, y, w, h, ic, ac):
+    # button(MSG!, 155, 155, 100, 50, red, darkRed)
+    mouse = pygame.mouse.get_pos()
+
+    if x + w > mouse[0] > x and y + h > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
+    else:
+        pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
+
+    smallText = pygame.font.Font("freesansbold.ttf", 30)
+    textSurf, textRect = text_objects(msg, smallText, ic)
+    textRect.center = ((x + (w / 2)), (y + (h / 2)))
+    gameDisplay.blit(textSurf, textRect)
+
+
 def odometer(count):
     font = pygame.font.SysFont(None, 25)
-    text = font.render("thing_speed: " + str(count), True, black)
-    gameDisplay.blit(text, (0, 15))
+    text = font.render("thing_speed: " + str(count), True, white)
+    gameDisplay.blit(text, (5, 15))
 
 
 def things_dodged(count):
     font = pygame.font.SysFont(None, 25)
-    text = font.render("Dodged: " + str(count), True, black)
-    gameDisplay.blit(text, (0, 0))
+    text = font.render("Dodged: " + str(count), True, white)
+    gameDisplay.blit(text, (5, 0))
 
 
 def thing(thingx, thingy, thingw, thingh):  # Defines blocks
-    pygame.draw.rect(gameDisplay, red, [thingx, thingy, thingw, thingh])
+    s = pygame.Surface((55, 124), pygame.SRCALPHA)
+    s.fill((255, 255, 255))
+    gameDisplay.blit(s, (thingx, thingy))
+    pygame.draw.rect(gameDisplay, black, [thingx, thingy, thingw, thingh])
+    gameDisplay.blit(truck_image, (thingx, thingy))
 
 
 def car(x, y):  # Defines car
@@ -68,15 +95,15 @@ def car(x, y):  # Defines car
     # 0,0 for computers is upper left. x = right y = down
 
 
-def text_objects(message, font):  # Defines text_objects
-    text_surface = font.render(message, True, black)  # Renders the font
+def text_objects(message, font, color):  # Defines text_objects
+    text_surface = font.render(message, True, color)  # Renders the font
     # Define text_surface|Font in Pygame|Put message|Aliasing toggle|Font color
     return text_surface, text_surface.get_rect()  # Returns the value og text_surface and text_surface.get_rect()
 
 
 def message_display(message):  # Create function for message appearance
     largeText = pygame.font.Font('freesansbold.ttf', 115)  # Defines font
-    TextSurf, TextRect = text_objects(message, largeText)  # Define TextSurf and TextRect
+    TextSurf, TextRect = text_objects(message, largeText, white)  # Define TextSurf and TextRect
     TextRect.center = ((displayWidth / 2), (displayHeight / 2))  # Centers the text
     gameDisplay.blit(TextSurf, TextRect)  # Make text appear
 
@@ -89,6 +116,15 @@ def crash():  # Define crash
     message_display('You Crashed')  # Display message
 
 
+def game_background():
+    gameDisplay.fill(black)
+
+    pygame.draw.line(gameDisplay, green, (1, 1), (1, 600), 5)
+    pygame.draw.line(gameDisplay, green, (800, 1), (800, 600), 9)
+    pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
+    pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 450, 20, 100))
+
+
 def game_intro():
     intro = True
 
@@ -98,12 +134,47 @@ def game_intro():
                 pygame.quit()
                 quit()
 
-        gameDisplay.fill(white)
-        largeText = pygame.font.Font('freesansbold.ttf', 115)
-        smallText = pygame.font.Font('freesansbold.ttf', 75)
-        TextSurf, TextRect = text_objects("Vroom", largeText)
-        TextRect.center = ((displayWidth / 2), (displayHeight / 2))
+        game_background()
+        largeText = pygame.font.Font('freesansbold.ttf', 75)
+        TextSurf, TextRect = text_objects("Vroom: The Game", largeText, white)
+        TextRect.center = (400, 100)
         gameDisplay.blit(TextSurf, TextRect)
+
+        ##########
+        # Button #
+        ##########
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+        if 150 + 150 > mouse[0] > 150 and 250 + 100 > mouse[1] > 250:
+            print("button_one: Hover True")
+            pygame.draw.rect(gameDisplay, darkRed, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
+            if click[0] == 1:
+                print("button_one: Click True")
+                exit_game()
+        elif 500 + 150 > mouse[0] > 150 and 250 + 100 > mouse[1] > 250:
+            print("button_two: Hove True")
+            pygame.draw.rect(gameDisplay, darkGreen, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
+            if click[0] == 1:
+                print("button_two: Click True")
+                game_loop()
+
+        pygame.draw.rect(gameDisplay, red, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
+        pygame.draw.rect(gameDisplay, green, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
+
+        smallText = pygame.font.Font("freesansbold.ttf", 30)
+        TextSurf, TextRect = text_objects("Play!", smallText, black)
+        TextRect.center = ((displayWidth / 2 + (350 / 2)), (displayHeight / 2))
+        gameDisplay.blit(TextSurf, TextRect)
+
+        smallText = pygame.font.Font("freesansbold.ttf", 30)
+        TextSurf, TextRect = text_objects("Quit!", smallText, black)
+        TextRect.center = ((displayWidth / 2 - (350 / 2)), (displayHeight / 2))
+        gameDisplay.blit(TextSurf, TextRect)
+
+        ##############
+        # Not Button #
+        ##############
         pygame.display.update()
         clock.tick(60)
 
@@ -119,8 +190,8 @@ def game_loop():  # Define game_loop
     thing_startx = random.randrange(0, displayWidth)
     thing_starty = -600
     thing_speed = 5
-    thing_width = 100
-    thing_height = 100
+    thing_width = 55
+    thing_height = 124
     ##############
 
     #############
@@ -148,15 +219,19 @@ def game_loop():  # Define game_loop
 
         x += x_change  # x = x + xChange // If xChange is -5 than x will move over minus five
 
-        gameDisplay.fill(white)  # Creates white background (put in right order or else get overwritten)
+        ##############
+        # Background #
+        ##############
+        game_background()
+        pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 50, 20, 100))
 
         thing(thing_startx, thing_starty, thing_width, thing_height)
         thing_starty += thing_speed
         car(x, y)  # Runs car
         ############
-        # Odometer ##############
-        odometer(thing_speed)  #
-        #########################
+        # Odometer ###############
+        # odometer(thing_speed)  #
+        ##########################
         things_dodged(dodged)
 
         if x > displayWidth - car_width or x < 0:

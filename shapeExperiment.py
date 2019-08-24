@@ -21,13 +21,13 @@ pixAr[10][20] = green
 #     |X|Y|
 
 pygame.draw.rect(game_display, red, (400, 500, 100, 10))
-# Use Pygame                 |Color|Stop left|width|height
+# Use Pygame                 |Color|Top left|Width|Height
 
 pygame.draw.circle(game_display, green, (300, 200), 25)
 # Use Pygame                    |Color|Center|Radius
 
 pygame.draw.line(game_display, blue, (100, 200), (300, 450), 5)
-# Use Pygame for stuff       |Color|Start point|End Pint|Line width
+# Use Pygame for stuff       |Color|Start Point|End Point|Line width
 
 pygame.draw.polygon(game_display, white, ((25, 75), (76, 125), (600, 575)))
 # Use Pygame                             |Start Point|Point One|Point Two|
