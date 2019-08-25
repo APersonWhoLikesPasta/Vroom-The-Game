@@ -1,5 +1,5 @@
 # Vroom: The Game
-#### My first game written in Python. This is my fist repository so idk what I'm doing.
+#### My first game written in Python. This is my first repository so idk what I'm doing.
 
 ## Vroom
 Vroom is a game where you drive a car around obstacles.
