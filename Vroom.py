@@ -258,10 +258,10 @@ def game_loop():  # Define game_loop
 # Game Run #
 ############
 
-game_intro()  # Run intro
+#game_intro()  # Run intro
 
 game_loop()  # Run game loop
-
+##Finn notes: line 247 too long has to be before grey line 67 has a capitalisation issue##
 ###############
 # End Process #
 ###############
