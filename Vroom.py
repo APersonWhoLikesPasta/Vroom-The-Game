@@ -198,7 +198,7 @@ def game_loop():  # Define game_loop
     thing_starty = -600
     thing_speed = 3
     thing_width = 71
-    thing_height = 124
+    thing_height = 174
     ##############
 
     #############
