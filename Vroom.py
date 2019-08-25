@@ -49,6 +49,7 @@ truck_image = pygame.image.load('car-truck3.png')
 # Functions #
 #############
 
+
 def exit_game():
     print("Quit from Menu")
     pygame.quit()
@@ -83,10 +84,12 @@ def things_dodged(count):
 
 
 def thing(thingx, thingy, thingw, thingh):  # Defines blocks
-    s = pygame.Surface((55, 124), pygame.SRCALPHA)
-    s.fill((255, 255, 255))
-    gameDisplay.blit(s, (thingx, thingy))
     pygame.draw.rect(gameDisplay, black, [thingx, thingy, thingw, thingh])
+
+    pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 50, 20, 100))
+    pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
+    pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 450, 20, 100))
+
     gameDisplay.blit(truck_image, (thingx, thingy))
 
 
@@ -113,6 +116,7 @@ def message_display(message):  # Create function for message appearance
 
 
 def crash():  # Define crash
+    pygame.draw.rect(gameDisplay, black, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
     message_display('You Crashed')  # Display message
 
 
@@ -228,6 +232,7 @@ def game_loop():  # Define game_loop
         thing(thing_startx, thing_starty, thing_width, thing_height)
         thing_starty += thing_speed
         car(x, y)  # Runs car
+
         ############
         # Odometer ###############
         # odometer(thing_speed)  #
@@ -238,7 +243,7 @@ def game_loop():  # Define game_loop
             crash()
         if thing_starty > displayHeight:
             thing_starty = 0 - thing_height
-            thing_startx = random.randrange(0, displayWidth)
+            thing_startx = random.randrange(5, (displayWidth - 65))
             dodged += 1
             thing_speed += 0.5
 
