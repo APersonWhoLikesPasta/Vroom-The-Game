@@ -192,10 +192,11 @@ def game_loop():  # Define game_loop
     x_change = 0  # Sets default change value
 
     dodged = 0
+
     ##############
     thing_startx = random.randrange(5, displayWidth - 50)
     thing_starty = -600
-    thing_speed = 1
+    thing_speed = 3
     thing_width = 55
     thing_height = 124
     ##############
@@ -251,7 +252,15 @@ def game_loop():  # Define game_loop
 
         if y < thing_starty + thing_height:
             print('y crossover')
-            if thing_startx < x < thing_startx + thing_width or thing_startx < x + car_width < thing_startx + thing_width:
+            if thing_startx < x < thing_startx + thing_width:
+                print('x crossover')
+                print('crash')
+                crash()
+            elif thing_startx < x + car_width < thing_startx + thing_width:
+                print('x crossover')
+                print('crash')
+                crash()
+            elif thing_startx > x:
                 print('x crossover')
                 print('crash')
                 crash()
