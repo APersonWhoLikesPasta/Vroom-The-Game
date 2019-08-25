@@ -6,7 +6,7 @@ Vroom is a game where you drive a car around obstacles.
 
 #### Installation
 
-IDK
+WIP
 
 #### Credits
 ##### Art - https://opengameart.org/content/top-view-car-truck-sprites
