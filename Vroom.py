@@ -195,7 +195,7 @@ def game_loop():  # Define game_loop
     ##############
     thing_startx = random.randrange(5, displayWidth - 50)
     thing_starty = -600
-    thing_speed = 1
+    thing_speed = 3
     thing_width = 55
     thing_height = 124
     ##############
