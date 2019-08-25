@@ -84,7 +84,7 @@ def things_dodged(count):
 
 
 def thing(thingx, thingy, thingw, thingh):  # Defines blocks
-    pygame.draw.rect(gameDisplay, red, [thingx, thingy, thingw, thingh])
+    pygame.draw.rect(gameDisplay, black, [thingx, thingy, thingw, thingh])
 
     pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 50, 20, 100))
     pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
@@ -94,7 +94,7 @@ def thing(thingx, thingy, thingw, thingh):  # Defines blocks
 
 
 def car(x, y):  # Defines car
-    pygame.draw.rect(gameDisplay, red, (x, y, 70, 75))
+    # pygame.draw.rect(gameDisplay, red, (x, y, 70, 75))
     gameDisplay.blit(car_image, (x, y))  # Blit Car.png on the display
     # 0,0 for computers is upper left. x = right y = down
 
@@ -238,7 +238,7 @@ def game_loop():  # Define game_loop
 
         ############
         # Odometer ###############
-        odometer(thing_speed)  #
+        # odometer(thing_speed)  #
         ##########################
         things_dodged(dodged)
 
