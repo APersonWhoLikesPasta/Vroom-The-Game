@@ -197,7 +197,7 @@ def game_loop():  # Define game_loop
     thing_startx = random.randrange(5, displayWidth - 50)
     thing_starty = -600
     thing_speed = 3
-    thing_width = 55
+    thing_width = 71
     thing_height = 124
     ##############
 
@@ -257,10 +257,6 @@ def game_loop():  # Define game_loop
                 print('crash')
                 crash()
             elif thing_startx < x + car_width < thing_startx + thing_width:
-                print('x crossover')
-                print('crash')
-                crash()
-            elif thing_startx > x:
                 print('x crossover')
                 print('crash')
                 crash()
