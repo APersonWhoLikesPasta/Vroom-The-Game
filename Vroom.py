@@ -84,7 +84,7 @@ def things_dodged(count):
 
 
 def thing(thingx, thingy, thingw, thingh):  # Defines blocks
-    pygame.draw.rect(gameDisplay, black, [thingx, thingy, thingw, thingh])
+    pygame.draw.rect(gameDisplay, red, [thingx, thingy, thingw, thingh])
 
     pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, 50, 20, 100))
     pygame.draw.rect(gameDisplay, white, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
@@ -94,6 +94,7 @@ def thing(thingx, thingy, thingw, thingh):  # Defines blocks
 
 
 def car(x, y):  # Defines car
+    pygame.draw.rect(gameDisplay, red, (x, y, 70, 75))
     gameDisplay.blit(car_image, (x, y))  # Blit Car.png on the display
     # 0,0 for computers is upper left. x = right y = down
 
@@ -118,6 +119,7 @@ def message_display(message):  # Create function for message appearance
 def crash():  # Define crash
     pygame.draw.rect(gameDisplay, black, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
     message_display('You Crashed')  # Display message
+    print("Crash")
 
 
 def game_background():
@@ -191,9 +193,9 @@ def game_loop():  # Define game_loop
 
     dodged = 0
     ##############
-    thing_startx = random.randrange(0, displayWidth)
+    thing_startx = random.randrange(5, displayWidth - 50)
     thing_starty = -600
-    thing_speed = 5
+    thing_speed = 1
     thing_width = 55
     thing_height = 124
     ##############
@@ -235,7 +237,7 @@ def game_loop():  # Define game_loop
 
         ############
         # Odometer ###############
-        # odometer(thing_speed)  #
+        odometer(thing_speed)  #
         ##########################
         things_dodged(dodged)
 
@@ -251,6 +253,7 @@ def game_loop():  # Define game_loop
             print('y crossover')
             if thing_startx < x < thing_startx + thing_width or thing_startx < x + car_width < thing_startx + thing_width:
                 print('x crossover')
+                print('crash')
                 crash()
 
         pygame.display.update()  # Updates what the player sees
