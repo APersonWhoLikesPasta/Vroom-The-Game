@@ -11,3 +11,4 @@ IDK instructions WIP
 #### Credits
 ##### Art - https://opengameart.org/content/top-view-car-truck-sprites
 ##### Engine - https://www.pygame.org/news
+##### Game Idea and Tutorial - https://pythonprogramming.net/pygame-python-3-part-1-intro/
