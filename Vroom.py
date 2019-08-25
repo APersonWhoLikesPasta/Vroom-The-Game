@@ -41,8 +41,13 @@ pygame.display.set_caption('Vroom')  # Sets title bar text
 # A clock is necessary to time in game actions
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
 
+crash_sound = pygame.mixer.Sound('car_crash.wav')
+
 car_image = pygame.image.load('Car.png')  # Load Car.png
 truck_image = pygame.image.load('car-truck3.png')
+image_icon = pygame.image.load('CarIcon.png')
+
+pygame.display.set_icon(car_image)
 
 
 #############
@@ -65,10 +70,10 @@ def button(msg, x, y, w, h, ic, ac):
     else:
         pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
 
-    smallText = pygame.font.Font("freesansbold.ttf", 30)
-    textSurf, textRect = text_objects(msg, smallText, ic)
-    textRect.center = ((x + (w / 2)), (y + (h / 2)))
-    gameDisplay.blit(textSurf, textRect)
+    small_text = pygame.font.Font("freesansbold.ttf", 30)
+    text_surf, text_rect = text_objects(msg, small_text, ic)
+    text_rect.center = ((x + (w / 2)), (y + (h / 2)))
+    gameDisplay.blit(text_surf, text_rect)
 
 
 def odometer(count):
@@ -106,10 +111,10 @@ def text_objects(message, font, color):  # Defines text_objects
 
 
 def message_display(message):  # Create function for message appearance
-    largeText = pygame.font.Font('freesansbold.ttf', 115)  # Defines font
-    TextSurf, TextRect = text_objects(message, largeText, white)  # Define TextSurf and TextRect
-    TextRect.center = ((displayWidth / 2), (displayHeight / 2))  # Centers the text
-    gameDisplay.blit(TextSurf, TextRect)  # Make text appear
+    large_text = pygame.font.Font('freesansbold.ttf', 115)  # Defines font
+    text_surf, text_rect = text_objects(message, large_text, white)  # Define text_surf and text_rect
+    text_rect.center = ((displayWidth / 2), (displayHeight / 2))  # Centers the text
+    gameDisplay.blit(text_surf, text_rect)  # Make text appear
 
     pygame.display.update()  # Update display
     time.sleep(2)  # Display text for 2 seconds
@@ -141,10 +146,10 @@ def game_intro():
                 quit()
 
         game_background()
-        largeText = pygame.font.Font('freesansbold.ttf', 75)
-        TextSurf, TextRect = text_objects("Vroom: The Game", largeText, white)
-        TextRect.center = (400, 100)
-        gameDisplay.blit(TextSurf, TextRect)
+        large_text = pygame.font.Font('freesansbold.ttf', 75)
+        text_surf, text_rect = text_objects("Vroom: The Game", large_text, white)
+        text_rect.center = (400, 100)
+        gameDisplay.blit(text_surf, text_rect)
 
         ##########
         # Button #
@@ -168,15 +173,15 @@ def game_intro():
         pygame.draw.rect(gameDisplay, red, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
         pygame.draw.rect(gameDisplay, green, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
 
-        smallText = pygame.font.Font("freesansbold.ttf", 30)
-        TextSurf, TextRect = text_objects("Play!", smallText, black)
-        TextRect.center = ((displayWidth / 2 + (350 / 2)), (displayHeight / 2))
-        gameDisplay.blit(TextSurf, TextRect)
+        small_text = pygame.font.Font("freesansbold.ttf", 30)
+        text_surf, text_rect = text_objects("Play!", small_text, black)
+        text_rect.center = ((displayWidth / 2 + (350 / 2)), (displayHeight / 2))
+        gameDisplay.blit(text_surf, text_rect)
 
-        smallText = pygame.font.Font("freesansbold.ttf", 30)
-        TextSurf, TextRect = text_objects("Quit!", smallText, black)
-        TextRect.center = ((displayWidth / 2 - (350 / 2)), (displayHeight / 2))
-        gameDisplay.blit(TextSurf, TextRect)
+        small_text = pygame.font.Font("freesansbold.ttf", 30)
+        text_surf, text_rect = text_objects("Quit!", small_text, black)
+        text_rect.center = ((displayWidth / 2 - (350 / 2)), (displayHeight / 2))
+        gameDisplay.blit(text_surf, text_rect)
 
         ##############
         # Not Button #
