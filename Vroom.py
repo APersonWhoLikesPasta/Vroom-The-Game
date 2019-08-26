@@ -42,10 +42,11 @@ pygame.display.set_caption('Vroom')  # Sets title bar text
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
 
 crash_sound = pygame.mixer.Sound('car_crash.wav')
+vroom_music = pygame.mixer.music.load('VroomMusic.wav')
 
 car_image = pygame.image.load('Car.png')  # Load Car.png
 truck_image = pygame.image.load('car-truck3.png')
-image_icon = pygame.image.load('CarIcon.png')
+game_icon = pygame.image.load('CarIcon.png')
 
 pygame.display.set_icon(car_image)
 
@@ -122,6 +123,9 @@ def message_display(message):  # Create function for message appearance
 
 
 def crash():  # Define crash
+    pygame.mixer.music.stop()
+    pygame.mixer.Sound.play(crash_sound)
+
     pygame.draw.rect(gameDisplay, black, (displayWidth / 2 - 10, displayHeight / 2 - 50, 20, 100))
     message_display('You Crashed')  # Display message
     print("Crash")
@@ -161,10 +165,8 @@ def game_intro():
             print("button_one: Hover True")
             pygame.draw.rect(gameDisplay, darkRed, (displayWidth / 2 - 250, displayHeight / 2 - 50, 150, 100))
             if click[0] == 1:
-                print("button_one: Click True")
                 exit_game()
         elif 500 + 150 > mouse[0] > 150 and 250 + 100 > mouse[1] > 250:
-            print("button_two: Hove True")
             pygame.draw.rect(gameDisplay, darkGreen, (displayWidth / 2 + 100, displayHeight / 2 - 50, 150, 100))
             if click[0] == 1:
                 print("button_two: Click True")
@@ -191,6 +193,8 @@ def game_intro():
 
 
 def game_loop():  # Define game_loop
+    pygame.mixer.music.play(-1)
+
     x = (displayWidth * 0.45)  # Set x position
     y = (displayHeight * 0.8)  # Set y position
 
@@ -199,7 +203,14 @@ def game_loop():  # Define game_loop
     dodged = 0
 
     ##############
-    thing_startx = random.randrange(5, displayWidth - 50)
+    moving = random.randrange(1, 3)
+    print(moving)
+    for dodged in range(0, 100):
+        if moving == 3:
+            thing_startx = x
+        else:
+            thing_startx = random.randrange(5, displayWidth - 50)
+
     thing_starty = -600
     thing_speed = 5
     thing_width = 71
@@ -256,13 +267,10 @@ def game_loop():  # Define game_loop
             thing_speed += 0.5
 
         if y < thing_starty + thing_height:
-            print('y crossover')
             if thing_startx < x < thing_startx + thing_width:
-                print('x crossover')
                 print('crash')
                 crash()
             elif thing_startx < x + car_width < thing_startx + thing_width:
-                print('x crossover')
                 print('crash')
                 crash()
 
