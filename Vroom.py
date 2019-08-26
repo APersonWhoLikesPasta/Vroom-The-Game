@@ -205,12 +205,10 @@ def game_loop():  # Define game_loop
     ##############
     moving = random.randrange(1, 3)
     print(moving)
-    for dodged in range(0, 100):
-        if moving == 3:
-            thing_startx = x
-        else:
-            thing_startx = random.randrange(5, displayWidth - 50)
-
+    if moving == 3:
+        thing_startx = x
+    else:
+        thing_startx = random.randrange(5, displayWidth - 50)
     thing_starty = -600
     thing_speed = 5
     thing_width = 71
@@ -264,6 +262,12 @@ def game_loop():  # Define game_loop
             thing_starty = 0 - thing_height
             thing_startx = random.randrange(5, (displayWidth - 65))
             dodged += 1
+            moving = random.randrange(1, 4)
+            print(moving)
+            if moving == 3:
+                thing_startx = x
+            else:
+                thing_startx = random.randrange(5, displayWidth - 50)
             thing_speed += 0.5
 
         if y < thing_starty + thing_height:
