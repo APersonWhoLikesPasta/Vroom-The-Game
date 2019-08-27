@@ -42,7 +42,7 @@ pygame.display.set_caption('Vroom')  # Sets title bar text
 clock = pygame.time.Clock()  # Creates the clock which is imposed on everything
 
 crash_sound = pygame.mixer.Sound('car_crash.wav')
-vroom_music = pygame.mixer.music.load('VroomMusic.wav')
+vroom_intro_music = pygame.mixer.music.load('VroomIntroMusic.wav')
 
 car_image = pygame.image.load('Car.png')  # Load Car.png
 truck_image = pygame.image.load('car-truck3.png')
@@ -141,6 +141,8 @@ def game_background():
 
 
 def game_intro():
+    pygame.mixer.music.play(-1)
+
     intro = True
 
     while intro:
@@ -193,6 +195,7 @@ def game_intro():
 
 
 def game_loop():  # Define game_loop
+    vroom_game_music = pygame.mixer.music.load('VroomMusic.wav')
     pygame.mixer.music.play(-1)
 
     x = (displayWidth * 0.45)  # Set x position
@@ -204,7 +207,6 @@ def game_loop():  # Define game_loop
 
     ##############
     moving = random.randrange(1, 3)
-    print(moving)
     if moving == 3:
         thing_startx = x
     else:
@@ -263,7 +265,6 @@ def game_loop():  # Define game_loop
             thing_startx = random.randrange(5, (displayWidth - 65))
             dodged += 1
             moving = random.randrange(1, 4)
-            print(moving)
             if moving == 3:
                 thing_startx = x
             else:
